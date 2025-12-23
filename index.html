@@ -23,6 +23,7 @@
     <div id="cursor-outline" class="w-10 h-10 border border-[#FF4500] rounded-full transition-all duration-200"></div>
 
     <div class="relative max-w-[1300px] mx-auto px-6 md:px-12 border-l border-r border-[#1f1f1f] min-h-screen bg-[#080808]/70 backdrop-blur-[5px]">
+        
         <header class="sticky top-0 z-50 flex justify-between items-center py-8 border-b border-[#1f1f1f] bg-[#080808]">
             <a href="#" class="font-oswald text-3xl font-bold tracking-tighter">UNIT <span class="bg-[#FF4500] text-black px-2 py-0.5">3</span></a>
             <nav class="flex items-center gap-8">
@@ -52,15 +53,48 @@
     <section id="work" class="max-w-[1300px] mx-auto px-6 md:px-12 py-24">
         <h2 class="font-oswald text-6xl uppercase font-bold mb-12">SELECTED WORK</h2>
         <div class="grid grid-cols-1 gap-12">
+            
             <article class="grid grid-cols-1 md:grid-cols-2 border border-[#1f1f1f] bg-[#0a0a0a]">
                 <div class="bg-[#111] p-8 flex justify-center items-center relative overflow-hidden">
-                    <img src="assets/proroof.jpg" class="w-[240px] rounded-[40px] border-4 border-[#333] shadow-2xl relative z-10" alt="Mobile View">
+                    <img src="assets/proroof.jpeg" class="w-[240px] rounded-[40px] border-4 border-[#333] shadow-2xl relative z-10" alt="ProRoofing Mobile">
                 </div>
                 <div class="p-8 flex flex-col justify-center">
                     <h3 class="font-oswald text-3xl text-[#FF4500] mb-4">PROROOFING LEAD ENGINE</h3>
                     <p class="opacity-70 mb-6">Restructured lead-acquisition flow for high-ticket services.</p>
                     <div class="text-5xl font-oswald text-[#FF4500]">+30% <span class="text-sm font-mono text-gray-500 uppercase">Lead Capture</span></div>
                 </div>
+            </article>
+
+            <article class="grid grid-cols-1 md:grid-cols-2 border border-[#1f1f1f] bg-[#0a0a0a] mt-12">
+                <div class="bg-[#111] p-8 flex justify-center items-center relative overflow-hidden">
+                    <img src="assets/solvix.jpeg" class="w-[240px] rounded-[40px] border-4 border-[#333] shadow-2xl relative z-10" alt="Solvix Mobile">
+                </div>
+                <div class="p-8 flex flex-col justify-center">
+                    <h3 class="font-oswald text-3xl text-[#FF4500] mb-4">SOLVIX PORTFOLIO SYSTEM</h3>
+                    <p class="opacity-70 mb-6">Modern web architecture mirroring high-end brand quality.</p>
+                    <div class="text-5xl font-oswald text-[#FF4500]">3X <span class="text-sm font-mono text-gray-500 uppercase">Inquiries</span></div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="max-w-[1300px] mx-auto px-6 md:px-12 py-24 border-t border-[#1f1f1f]">
+        <h2 class="font-oswald text-6xl uppercase font-bold mb-12">THE TEAM</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <article class="border border-[#1f1f1f] p-4">
+                <img src="assets/jay.JPG" class="w-full aspect-square object-cover mb-4 grayscale hover:grayscale-0 transition-all" alt="Jay">
+                <h3 class="text-[#FF4500] font-oswald text-xl uppercase">Design Director</h3>
+                <p class="font-mono text-xs opacity-50">// HANDLE: JAY</p>
+            </article>
+            <article class="border border-[#1f1f1f] p-4">
+                <img src="assets/zx.png" class="w-full aspect-square object-cover mb-4 grayscale hover:grayscale-0 transition-all" alt="ZX">
+                <h3 class="text-[#FF4500] font-oswald text-xl uppercase">Strategy Director</h3>
+                <p class="font-mono text-xs opacity-50">// HANDLE: ZX</p>
+            </article>
+            <article class="border border-[#1f1f1f] p-4">
+                <img src="assets/vincent.jpg" class="w-full aspect-square object-cover mb-4 grayscale hover:grayscale-0 transition-all" alt="Vincent">
+                <h3 class="text-[#FF4500] font-oswald text-xl uppercase">Technical Director</h3>
+                <p class="font-mono text-xs opacity-50">// HANDLE: VINCENT</p>
             </article>
         </div>
     </section>
@@ -73,10 +107,6 @@
             dot.style.left = outline.style.left = e.clientX + 'px';
             dot.style.top = outline.style.top = e.clientY + 'px';
         });
-
-        // Currency Detection
-        const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        console.log("Detecting location: " + userTimeZone);
     </script>
 </body>
 </html>

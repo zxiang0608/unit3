@@ -6,21 +6,27 @@
     <title>Unit 3 | Digital Infrastructure</title>
     <link rel="icon" href="assets/unit3logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@400;500;700&family=Space+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@400;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         .font-oswald { font-family: 'Oswald', sans-serif; }
+        .font-inter { font-family: 'Inter', sans-serif; }
         .font-mono { font-family: 'Space Mono', monospace; }
         .clip-path-button { clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px); }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         .animate-marquee { animation: marquee 20s linear infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 69, 0, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(255, 69, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 69, 0, 0); } }
+        .animate-pulse-custom { animation: pulse 2s infinite; }
         #cursor-dot, #cursor-outline { position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); display: none; }
         @media (min-width: 768px) { #cursor-dot, #cursor-outline { display: block; } }
     </style>
 </head>
-<body class="bg-[#080808] text-[#Eaeaea] font-sans selection:bg-[#FF4500] selection:text-black overflow-x-hidden">
+<body class="bg-[#080808] text-[#Eaeaea] font-sans overflow-x-hidden selection:bg-[#FF4500] selection:text-black">
 
     <div id="cursor-dot" class="w-2 h-2 bg-[#FF4500] rounded-full"></div>
     <div id="cursor-outline" class="w-10 h-10 border border-[#FF4500] rounded-full transition-all duration-200"></div>
+
+    <div id="grid-bg" class="fixed inset-0 z-0 pointer-events-none opacity-30" style="background-size: 60px 60px; background-image: linear-gradient(to right, #1f1f1f 1px, transparent 1px), linear-gradient(to bottom, #1f1f1f 1px, transparent 1px);"></div>
+    <div class="fixed inset-0 z-0 pointer-events-none bg-[radial-gradient(circle,transparent_40%,#080808_100%)]"></div>
 
     <div class="relative max-w-[1300px] mx-auto px-6 md:px-12 border-l border-r border-[#1f1f1f] min-h-screen bg-[#080808]/70 backdrop-blur-[5px]">
         
@@ -28,17 +34,24 @@
             <a href="#" class="font-oswald text-3xl font-bold tracking-tighter">UNIT <span class="bg-[#FF4500] text-black px-2 py-0.5">3</span></a>
             <nav class="flex items-center gap-8">
                 <a href="#work" class="hidden md:block font-mono text-sm hover:text-[#FF4500]">WORK</a>
-                <a href="https://wa.link/7n7wj0" class="clip-path-button bg-[#FF4500] text-black px-8 py-3 font-oswald text-lg tracking-widest uppercase hover:bg-black hover:text-[#FF4500] border border-[#FF4500] transition-all">GET STARTED</a>
+                <a href="#pricing" class="hidden md:block font-mono text-sm hover:text-[#FF4500]">PRICING</a>
+                <a href="https://wa.link/7n7wj0" target="_blank" class="clip-path-button bg-[#FF4500] text-black px-8 py-3 font-oswald text-lg tracking-widest uppercase border border-[#FF4500] hover:bg-black hover:text-[#FF4500] transition-all">GET STARTED</a>
             </nav>
         </header>
 
         <main class="py-24 md:py-40">
-            <p class="font-mono text-[#FF4500] uppercase tracking-widest mb-4">Design & Deployment Unit</p>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                <h1 class="font-oswald text-[12vw] lg:text-[7rem] font-bold leading-[0.95]">WE DEPLOY<br><span style="-webkit-text-stroke: 2px #333; color: transparent;">REVENUE</span><br>ENGINES.</h1>
-                <div class="border-l-2 border-[#FF4500] pl-6">
-                    <p class="text-xl md:text-2xl mb-12 opacity-90">Unit 3 builds landing pages engineered for revenue. <br><br> <span class="text-[#FF4500] font-bold">READY IN 7 DAYS.</span></p>
-                    <a href="https://wa.link/7n7wj0" class="clip-path-button inline-block bg-[#FF4500] text-black px-12 py-6 font-oswald text-2xl font-bold uppercase hover:scale-105 transition-transform shadow-[0_0_30px_rgba(255,69,0,0.4)]">START PROJECT</a>
+            <div class="hidden md:flex gap-8 mb-8 text-xs text-[#666] font-mono border-b border-[#1f1f1f] pb-4">
+                <span>/// SYS.READY</span><span>/// LOC: KUL-SYD-AMS</span><span>/// EST. 2024</span>
+            </div>
+            <p class="font-mono text-[#FF4500] uppercase tracking-widest mb-4 font-bold">Design & Deployment Unit</p>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                <h1 class="font-oswald text-[12vw] lg:text-[7.5rem] font-bold leading-[0.95]">WE DEPLOY<br><span style="-webkit-text-stroke: 2px #333; color: transparent;">REVENUE</span><br>ENGINES.</h1>
+                <div class="border-l-2 border-[#FF4500] pl-6 flex flex-col justify-between h-full">
+                    <p class="text-xl md:text-2xl mb-12 opacity-90 leading-relaxed">Unit 3 is a tactical design squad. We build landing pages and web apps engineered for revenue. <br><br><span class="text-[#FF4500] font-bold">READY IN 7 DAYS.</span></p>
+                    <a href="https://wa.link/7n7wj0" target="_blank" class="clip-path-button inline-block bg-[#FF4500] text-black px-12 py-6 font-oswald text-2xl font-bold uppercase shadow-[0_0_30px_rgba(255,69,0,0.4)] hover:scale-105 transition-transform text-center">START PROJECT</a>
+                    <p class="font-mono text-xs mt-8 opacity-80 flex items-center gap-2">
+                        <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> /// 2 SLOTS REMAINING
+                    </p>
                 </div>
             </div>
         </main>
@@ -50,63 +63,149 @@
         </div>
     </div>
 
-    <section id="work" class="max-w-[1300px] mx-auto px-6 md:px-12 py-24">
-        <h2 class="font-oswald text-6xl uppercase font-bold mb-12">SELECTED WORK</h2>
-        <div class="grid grid-cols-1 gap-12">
-            
-            <article class="grid grid-cols-1 md:grid-cols-2 border border-[#1f1f1f] bg-[#0a0a0a]">
-                <div class="bg-[#111] p-8 flex justify-center items-center relative overflow-hidden">
-                    <img src="assets/proroof.jpeg" class="w-[240px] rounded-[40px] border-4 border-[#333] shadow-2xl relative z-10" alt="ProRoofing Mobile">
-                </div>
-                <div class="p-8 flex flex-col justify-center">
-                    <h3 class="font-oswald text-3xl text-[#FF4500] mb-4">PROROOFING LEAD ENGINE</h3>
-                    <p class="opacity-70 mb-6">Restructured lead-acquisition flow for high-ticket services.</p>
-                    <div class="text-5xl font-oswald text-[#FF4500]">+30% <span class="text-sm font-mono text-gray-500 uppercase">Lead Capture</span></div>
-                </div>
-            </article>
+    <div class="relative max-w-[1300px] mx-auto px-6 md:px-12 border-l border-r border-[#1f1f1f] bg-[#080808]/70">
+        <section id="work" class="py-24">
+            <h2 class="font-oswald text-6xl uppercase font-bold mb-12 border-b border-[#1f1f1f] pb-4">SELECTED WORK</h2>
+            <div class="grid grid-cols-1 gap-12">
+                <article class="grid grid-cols-1 md:grid-cols-[1.5fr_1fr] border border-[#1f1f1f] bg-[#0a0a0a]">
+                    <div class="bg-[#111] min-h-[500px] relative flex justify-center items-center p-8 overflow-hidden">
+                        <img src="assets/proroof1.png" class="absolute inset-0 w-full h-full object-cover opacity-20" alt="Desktop">
+                        <img src="assets/proroof.jpeg" class="w-[240px] rounded-[40px] border-4 border-[#333] shadow-2xl relative z-10" alt="Mobile">
+                    </div>
+                    <div class="p-8 flex flex-col justify-center">
+                        <span class="font-mono text-xs text-[#666] mb-4">/// SECTOR: LOCAL SERVICES</span>
+                        <h3 class="font-oswald text-3xl text-[#FF4500] mb-4 uppercase">ProRoofing Lead Engine</h3>
+                        <p class="opacity-70 mb-6">Restructured lead-acquisition flow for high-ticket roofing services. Trust-first mobile architecture.</p>
+                        <div class="text-5xl font-oswald text-[#FF4500]">+30% <span class="text-sm font-mono text-gray-500 uppercase">Capture Rate</span></div>
+                    </div>
+                </article>
 
-            <article class="grid grid-cols-1 md:grid-cols-2 border border-[#1f1f1f] bg-[#0a0a0a] mt-12">
-                <div class="bg-[#111] p-8 flex justify-center items-center relative overflow-hidden">
-                    <img src="assets/solvix.jpeg" class="w-[240px] rounded-[40px] border-4 border-[#333] shadow-2xl relative z-10" alt="Solvix Mobile">
-                </div>
-                <div class="p-8 flex flex-col justify-center">
-                    <h3 class="font-oswald text-3xl text-[#FF4500] mb-4">SOLVIX PORTFOLIO SYSTEM</h3>
-                    <p class="opacity-70 mb-6">Modern web architecture mirroring high-end brand quality.</p>
-                    <div class="text-5xl font-oswald text-[#FF4500]">3X <span class="text-sm font-mono text-gray-500 uppercase">Inquiries</span></div>
-                </div>
-            </article>
-        </div>
-    </section>
+                <article class="grid grid-cols-1 md:grid-cols-[1.5fr_1fr] border border-[#1f1f1f] bg-[#0a0a0a]">
+                    <div class="bg-[#111] min-h-[500px] relative flex justify-center items-center p-8 overflow-hidden">
+                        <img src="assets/solvix1.png" class="absolute inset-0 w-full h-full object-cover opacity-20" alt="Desktop">
+                        <img src="assets/solvix.jpeg" class="w-[240px] rounded-[40px] border-4 border-[#333] shadow-2xl relative z-10" alt="Mobile">
+                    </div>
+                    <div class="p-8 flex flex-col justify-center">
+                        <span class="font-mono text-xs text-[#666] mb-4">/// SECTOR: CREATIVE SERVICES</span>
+                        <h3 class="font-oswald text-3xl text-[#FF4500] mb-4 uppercase">Solvix Portfolio System</h3>
+                        <p class="opacity-70 mb-6">Modern web architecture mirroring high-end brand quality for Instagram-first businesses.</p>
+                        <div class="text-5xl font-oswald text-[#FF4500]">3X <span class="text-sm font-mono text-gray-500 uppercase">Inquiries</span></div>
+                    </div>
+                </article>
+            </div>
+        </section>
 
-    <section class="max-w-[1300px] mx-auto px-6 md:px-12 py-24 border-t border-[#1f1f1f]">
-        <h2 class="font-oswald text-6xl uppercase font-bold mb-12">THE TEAM</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <article class="border border-[#1f1f1f] p-4">
-                <img src="assets/jay.JPG" class="w-full aspect-square object-cover mb-4 grayscale hover:grayscale-0 transition-all" alt="Jay">
-                <h3 class="text-[#FF4500] font-oswald text-xl uppercase">Design Director</h3>
-                <p class="font-mono text-xs opacity-50">// HANDLE: JAY</p>
-            </article>
-            <article class="border border-[#1f1f1f] p-4">
-                <img src="assets/zx.png" class="w-full aspect-square object-cover mb-4 grayscale hover:grayscale-0 transition-all" alt="ZX">
-                <h3 class="text-[#FF4500] font-oswald text-xl uppercase">Strategy Director</h3>
-                <p class="font-mono text-xs opacity-50">// HANDLE: ZX</p>
-            </article>
-            <article class="border border-[#1f1f1f] p-4">
-                <img src="assets/vincent.jpg" class="w-full aspect-square object-cover mb-4 grayscale hover:grayscale-0 transition-all" alt="Vincent">
-                <h3 class="text-[#FF4500] font-oswald text-xl uppercase">Technical Director</h3>
-                <p class="font-mono text-xs opacity-50">// HANDLE: VINCENT</p>
-            </article>
-        </div>
-    </section>
+        <section class="py-24 border-t border-[#1f1f1f]">
+            <h2 class="font-oswald text-4xl md:text-6xl uppercase font-bold mb-12 border-b border-[#1f1f1f] pb-4">CLIENT DEBRIEFS</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <article class="border border-[#1f1f1f] p-8 bg-[#0a0a0a] hover:border-[#FF4500] transition-colors">
+                    <div class="text-[#FF4500] text-4xl font-oswald mb-4">"</div>
+                    <p class="text-lg mb-6 italic opacity-80">Unit 3 didn't just build a website. They built a war machine. Our lead volume tripled in the first week.</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-[#222] rounded-full"></div>
+                        <div><h4 class="font-oswald uppercase">Marcus T.</h4><p class="text-xs opacity-50 font-mono">CEO, ProRoofing</p></div>
+                    </div>
+                </article>
+                <article class="border border-[#1f1f1f] p-8 bg-[#0a0a0a] hover:border-[#FF4500] transition-colors">
+                    <div class="text-[#FF4500] text-4xl font-oswald mb-4">"</div>
+                    <p class="text-lg mb-6 italic opacity-80">Finally a platform that does our work justice. It captures the exact high-end vibe we were missing.</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-[#222] rounded-full"></div>
+                        <div><h4 class="font-oswald uppercase">SC</h4><p class="text-xs opacity-50 font-mono">Founder, Solvix</p></div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="pricing" class="py-24 border-t border-[#1f1f1f]">
+            <h2 class="font-oswald text-6xl uppercase font-bold mb-12">PRICING</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <article class="border border-[#FF4500] bg-[rgba(255,69,0,0.05)] p-8 flex flex-col h-full">
+                    <span class="font-mono text-[#FF4500] text-sm mb-6">/// PILOT ACCESS</span>
+                    <h3 class="font-oswald text-2xl mb-2">LANDING PROTOCOL</h3>
+                    <div class="font-oswald text-6xl mb-6 flex items-baseline">
+                        <span class="text-2xl mr-2" id="symbol">RM</span><span id="price">1199</span>
+                    </div>
+                    <ul class="space-y-4 mb-8 text-sm flex-grow">
+                        <li class="border-b border-[#222] pb-2">+ High-Conversion Copy</li>
+                        <li class="border-b border-[#222] pb-2">+ Mobile-First Responsive Design</li>
+                        <li class="border-b border-[#222] pb-2">+ 7-Day Shipping Guarantee</li>
+                    </ul>
+                    <a href="https://wa.link/7n7wj0" target="_blank" class="clip-path-button w-full text-center bg-[#FF4500] text-black py-4 font-oswald uppercase font-bold">SECURE SLOT</a>
+                </article>
+                <article class="border border-[#1f1f1f] bg-[#080808] p-8 flex flex-col h-full opacity-80">
+                    <span class="font-mono text-sm mb-6">/// FULL SYSTEM</span>
+                    <h3 class="font-oswald text-2xl mb-2">CUSTOM ARCHITECTURE</h3>
+                    <div class="font-oswald text-6xl mb-6">CUSTOM</div>
+                    <p class="mb-8 opacity-60">Multi-page apps, CMS, and WebGL animations.</p>
+                    <a href="https://wa.link/qr1fsi" target="_blank" class="clip-path-button w-full text-center border border-[#333] py-4 font-oswald uppercase">GET QUOTE</a>
+                </article>
+            </div>
+        </section>
+
+        <section id="team" class="py-24 border-t border-[#1f1f1f]">
+            <h2 class="font-oswald text-6xl uppercase font-bold mb-12">THE TEAM</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <article class="border border-[#1f1f1f] p-4 group">
+                    <div class="aspect-square overflow-hidden mb-4 grayscale group-hover:grayscale-0 transition-all bg-[#111]">
+                        <img src="assets/jay.JPG" class="w-full h-full object-cover object-top" alt="Jay">
+                    </div>
+                    <h3 class="text-[#FF4500] font-oswald text-xl uppercase">Design Director</h3>
+                    <p class="font-mono text-xs opacity-50 mb-2">// HANDLE: JAY</p>
+                </article>
+                <article class="border border-[#1f1f1f] p-4 group">
+                    <div class="aspect-square overflow-hidden mb-4 grayscale group-hover:grayscale-0 transition-all bg-[#111]">
+                        <img src="assets/zx.png" class="w-full h-full object-cover object-top" alt="ZX">
+                    </div>
+                    <h3 class="text-[#FF4500] font-oswald text-xl uppercase">Strategy Director</h3>
+                    <p class="font-mono text-xs opacity-50 mb-2">// HANDLE: ZX</p>
+                </article>
+                <article class="border border-[#1f1f1f] p-4 group">
+                    <div class="aspect-square overflow-hidden mb-4 grayscale group-hover:grayscale-0 transition-all bg-[#111]">
+                        <img src="assets/vincent.jpg" class="w-full h-full object-cover object-top" alt="Vincent">
+                    </div>
+                    <h3 class="text-[#FF4500] font-oswald text-xl uppercase">Technical Director</h3>
+                    <p class="font-mono text-xs opacity-50 mb-2">// HANDLE: VINCENT</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="p-8 border border-[#FF4500] flex flex-col md:flex-row justify-between items-center gap-8 mb-24" style="background: repeating-linear-gradient(45deg, #111, #111 10px, #1a1a1a 10px, #1a1a1a 20px)">
+            <div>
+                <h3 class="flex items-center text-2xl font-oswald uppercase mb-2">
+                    <span class="w-3 h-3 bg-red-600 rounded-full mr-3 animate-pulse-custom"></span>EMERGENCY DEPLOYMENT
+                </h3>
+                <p class="opacity-80">Need it yesterday? 2 slots open per month for 48-hour turnarounds.</p>
+            </div>
+            <a href="https://wa.link/97qgk9" target="_blank" class="clip-path-button border border-[#FF4500] text-[#FF4500] px-8 py-3 font-oswald uppercase hover:bg-[#FF4500] hover:text-black transition-all">CHECK AVAILABILITY</a>
+        </section>
+
+        <footer class="py-24 border-t border-[#1f1f1f]">
+            <h2 class="font-oswald text-5xl mb-8 uppercase">Ready to deploy?</h2>
+            <a href="https://wa.link/7n7wj0" target="_blank" class="clip-path-button inline-block bg-[#FF4500] text-black px-10 py-5 font-oswald text-xl font-bold uppercase shadow-[0_0_15px_rgba(255,69,0,0.3)]">START YOUR PROJECT</a>
+            <div class="mt-16 pt-8 border-t border-[#333] opacity-60 font-mono text-sm flex justify-between">
+                <div>© 2025 UNIT 3. ALL RIGHTS RESERVED.</div>
+                <div>KUL • SYD • AMS</div>
+            </div>
+        </footer>
+    </div>
 
     <script>
-        // Custom Cursor Logic
+        // Cursor Logic
         const dot = document.getElementById('cursor-dot');
         const outline = document.getElementById('cursor-outline');
         document.addEventListener('mousemove', (e) => {
             dot.style.left = outline.style.left = e.clientX + 'px';
             dot.style.top = outline.style.top = e.clientY + 'px';
         });
+
+        // Currency Detection
+        const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const sym = document.getElementById('symbol');
+        const pri = document.getElementById('price');
+        if (userTimeZone.includes("Australia")) { sym.innerText = "AUD $"; pri.innerText = "799"; }
+        else if (userTimeZone.includes("Europe") || userTimeZone.includes("Amsterdam")) { sym.innerText = "€"; pri.innerText = "499"; }
+        else if (userTimeZone.includes("America") || userTimeZone.includes("US")) { sym.innerText = "USD $"; pri.innerText = "499"; }
     </script>
 </body>
 </html>

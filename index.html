@@ -43,12 +43,16 @@
         /* Cursor Visibility */
         #cursor-dot, #cursor-outline { pointer-events: none; z-index: 9999; display: none; }
         @media (min-width: 768px) { #cursor-dot, #cursor-outline { display: block; } }
+        
+        /* Optimization for cursor movement */
+        .cursor-moving { will-change: transform; }
     </style>
 </head>
 <body class="bg-[#080808] text-[#Eaeaea] font-sans overflow-x-hidden cursor-none selection:bg-[#FF4500] selection:text-black">
 
-    <div id="cursor-dot" class="fixed w-2 h-2 bg-[#FF4500] rounded-full -translate-x-1/2 -translate-y-1/2"></div>
-    <div id="cursor-outline" class="fixed w-10 h-10 border border-[#FF4500] rounded-full -translate-x-1/2 -translate-y-1/2 transition-all duration-200 mix-blend-difference"></div>
+    <!-- CURSOR UPDATES: Removed transition-all, added specific transitions to prevent movement lag -->
+    <div id="cursor-dot" class="cursor-moving fixed w-2 h-2 bg-[#FF4500] rounded-full top-0 left-0"></div>
+    <div id="cursor-outline" class="cursor-moving fixed w-10 h-10 border border-[#FF4500] rounded-full top-0 left-0 transition-[width,height,background-color] duration-200 ease-out mix-blend-difference"></div>
 
     <div id="grid-bg" class="fixed inset-0 z-0 pointer-events-none opacity-30 transition-transform duration-100 ease-out" style="background-size: 60px 60px; background-image: linear-gradient(to right, #1f1f1f 1px, transparent 1px), linear-gradient(to bottom, #1f1f1f 1px, transparent 1px); transform-origin: center top;"></div>
     <div class="fixed inset-0 z-0 pointer-events-none bg-[radial-gradient(circle,transparent_40%,#080808_100%)]"></div>
@@ -108,7 +112,7 @@
 
     <div class="w-full bg-[#FF4500] text-black py-4 overflow-hidden whitespace-nowrap relative border-y-2 border-white -rotate-1 mb-24">
         <div class="inline-block font-oswald text-2xl font-bold animate-marquee">
-            STRATEGY /// DEVELOPMENT /// UX DESIGN /// AUTOMATION /// CONVERSION RATE OPTIMISATION /// STRATEGY /// DEVELOPMENT /// UX DESIGN /// AUTOMATION /// CONVERSION RATE OPTIMISATION ///
+            STRATEGY /// DEVELOPMENT /// UX DESIGN /// AUTOMATION /// CONVERSION RATE OPTIMISATION /// STRATEGY /// DEVELOPMENT /// UX DESIGN /// AUTOMATION /// CONVERSION RATE OPTIMISATION /// STRATEGY /// DEVELOPMENT /// UX DESIGN /// AUTOMATION /// CONVERSION RATE OPTIMISATION ///
         </div>
     </div>
 
@@ -388,7 +392,7 @@
     </div>
 
     <script>
-        // 1. Custom Cursor & Parallax Logic
+        // 1. High-Performance Custom Cursor & Parallax Logic (Updated)
         const dot = document.getElementById('cursor-dot');
         const outline = document.getElementById('cursor-outline');
         const grid = document.getElementById('grid-bg');
@@ -397,24 +401,29 @@
             const posX = e.clientX;
             const posY = e.clientY;
 
-            // Move Dot
-            dot.style.left = `${posX}px`;
-            dot.style.top = `${posY}px`;
+            // Use requestAnimationFrame for smooth GPU-accelerated movement without lag
+            requestAnimationFrame(() => {
+                // Use transform: translate3d for hardware acceleration
+                // Added translate(-50%, -50%) to center elements on the cursor coordinates
+                const transformString = `translate3d(${posX}px, ${posY}px, 0) translate(-50%, -50%)`;
+                
+                if (dot) dot.style.transform = transformString;
+                if (outline) outline.style.transform = transformString;
 
-            // Move Outline
-            outline.style.left = `${posX}px`;
-            outline.style.top = `${posY}px`;
-
-            // Parallax Grid Effect
-            const x = (window.innerWidth - posX * 2) / 100;
-            const y = (window.innerHeight - posY * 2) / 100;
-            grid.style.transform = `perspective(1000px) rotateX(5deg) scale(1.05) translateX(${x}px) translateY(${y}px)`;
+                // Parallax Grid Effect
+                if (grid) {
+                    const x = (window.innerWidth - posX * 2) / 100;
+                    const y = (window.innerHeight - posY * 2) / 100;
+                    grid.style.transform = `perspective(1000px) rotateX(5deg) scale(1.05) translateX(${x}px) translateY(${y}px)`;
+                }
+            });
         });
 
         // 2. Cursor Hover State
         const interactiveElements = document.querySelectorAll('.hover-trigger');
         interactiveElements.forEach(el => {
             el.addEventListener('mouseenter', () => {
+                // Use classList to animate size/color (handled by CSS transition)
                 outline.classList.add('w-20', 'h-20', 'bg-[#Eaeaea]', 'border-transparent');
                 outline.classList.remove('w-10', 'h-10', 'border-[#FF4500]');
             });
@@ -425,33 +434,37 @@
         });
 
         // 3. Currency Detection
-        const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        const symEl = document.getElementById('currency-symbol');
-        const priEl = document.getElementById('currency-price');
-        
-        console.log(`LOCALE DETECTED: ${userTimeZone}`);
+        try {
+            const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const symEl = document.getElementById('currency-symbol');
+            const priEl = document.getElementById('currency-price');
+            
+            console.log(`LOCALE DETECTED: ${userTimeZone}`);
 
-        if (userTimeZone.includes("Australia")) {
-            symEl.innerText = 'AUD';
-            priEl.innerText = '$799';
-        } else if (
-            userTimeZone.includes("Europe") || 
-            userTimeZone.includes("Amsterdam") || 
-            userTimeZone.includes("Paris") || 
-            userTimeZone.includes("Berlin")
-        ) {
-            symEl.innerText = '€';
-            priEl.innerText = '499';
-        } else if (
-            userTimeZone.includes("America") || 
-            userTimeZone.includes("US")
-        ) {
-            symEl.innerText = 'USD';
-            priEl.innerText = '$499';
-        } else {
-            // Default MYR
-            symEl.innerText = 'RM';
-            priEl.innerText = '1199';
+            if (userTimeZone.includes("Australia")) {
+                symEl.innerText = 'AUD';
+                priEl.innerText = '$799';
+            } else if (
+                userTimeZone.includes("Europe") || 
+                userTimeZone.includes("Amsterdam") || 
+                userTimeZone.includes("Paris") || 
+                userTimeZone.includes("Berlin")
+            ) {
+                symEl.innerText = '€';
+                priEl.innerText = '499';
+            } else if (
+                userTimeZone.includes("America") || 
+                userTimeZone.includes("US")
+            ) {
+                symEl.innerText = 'USD';
+                priEl.innerText = '$499';
+            } else {
+                // Default MYR
+                symEl.innerText = 'RM';
+                priEl.innerText = '1199';
+            }
+        } catch (e) {
+            console.log("Currency detection failed, using default.");
         }
     </script>
 </body>

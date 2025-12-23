@@ -5,27 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unit 3 | Digital Infrastructure</title>
     <link rel="icon" href="assets/unit3logo.png">
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@400;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
     <style>
+        /* Custom Font Assignments */
         .font-oswald { font-family: 'Oswald', sans-serif; }
         .font-inter { font-family: 'Inter', sans-serif; }
         .font-mono { font-family: 'Space Mono', monospace; }
-        .clip-path-button { clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px); }
-        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* Animations from App.tsx */
+        @keyframes marquee { 
+            0% { transform: translateX(0); } 
+            100% { transform: translateX(-50%); } 
+        }
         .animate-marquee { animation: marquee 20s linear infinite; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 69, 0, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(255, 69, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 69, 0, 0); } }
-        .animate-pulse-custom { animation: pulse 2s infinite; }
-        @keyframes heartbeat { 0% { transform: scale(1); box-shadow: 0 0 30px rgba(255,69,0,0.4); } 50% { transform: scale(1.05); box-shadow: 0 0 50px rgba(255,69,0,0.7); } 100% { transform: scale(1); box-shadow: 0 0 30px rgba(255,69,0,0.4); } }
+
+        @keyframes pulse-custom { 
+            0% { box-shadow: 0 0 0 0 rgba(255, 69, 0, 0.7); } 
+            70% { box-shadow: 0 0 0 10px rgba(255, 69, 0, 0); } 
+            100% { box-shadow: 0 0 0 0 rgba(255, 69, 0, 0); } 
+        }
+        .animate-pulse-custom { animation: pulse-custom 2s infinite; }
+
+        @keyframes heartbeat { 
+            0% { transform: scale(1); box-shadow: 0 0 30px rgba(255,69,0,0.4); } 
+            50% { transform: scale(1.05); box-shadow: 0 0 50px rgba(255,69,0,0.7); } 
+            100% { transform: scale(1); box-shadow: 0 0 30px rgba(255,69,0,0.4); } 
+        }
         .animate-heartbeat { animation: heartbeat 3s infinite ease-in-out; }
-        #cursor-dot, #cursor-outline { position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); display: none; }
+
+        /* Utility */
+        .clip-path-button { clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px); }
+        
+        /* Cursor Visibility */
+        #cursor-dot, #cursor-outline { pointer-events: none; z-index: 9999; display: none; }
         @media (min-width: 768px) { #cursor-dot, #cursor-outline { display: block; } }
     </style>
 </head>
 <body class="bg-[#080808] text-[#Eaeaea] font-sans overflow-x-hidden cursor-none selection:bg-[#FF4500] selection:text-black">
 
-    <div id="cursor-dot" class="w-2 h-2 bg-[#FF4500] rounded-full"></div>
-    <div id="cursor-outline" class="w-10 h-10 border border-[#FF4500] rounded-full transition-all duration-200 mix-blend-difference"></div>
+    <div id="cursor-dot" class="fixed w-2 h-2 bg-[#FF4500] rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+    <div id="cursor-outline" class="fixed w-10 h-10 border border-[#FF4500] rounded-full -translate-x-1/2 -translate-y-1/2 transition-all duration-200 mix-blend-difference"></div>
 
     <div id="grid-bg" class="fixed inset-0 z-0 pointer-events-none opacity-30 transition-transform duration-100 ease-out" style="background-size: 60px 60px; background-image: linear-gradient(to right, #1f1f1f 1px, transparent 1px), linear-gradient(to bottom, #1f1f1f 1px, transparent 1px); transform-origin: center top;"></div>
     <div class="fixed inset-0 z-0 pointer-events-none bg-[radial-gradient(circle,transparent_40%,#080808_100%)]"></div>
@@ -33,25 +56,47 @@
     <div class="relative max-w-[1300px] mx-auto px-6 md:px-12 border-l border-r border-[#1f1f1f] min-h-screen bg-[#080808]/70 backdrop-blur-[5px]">
         
         <header class="sticky top-0 z-50 flex justify-between items-center py-8 border-b border-[#1f1f1f] bg-[#080808] backdrop-blur-md">
-            <a href="#" class="font-oswald text-3xl font-bold tracking-tighter group">UNIT <span class="bg-[#FF4500] text-black px-2 py-0.5">3</span></a>
+            <a href="#" class="font-oswald text-3xl font-bold tracking-tighter flex items-center gap-2 group hover-trigger">
+                UNIT <span class="bg-[#FF4500] text-black px-2 py-0.5">3</span>
+            </a>
             <nav class="flex items-center">
-                <a href="#work" class="hidden md:block font-mono text-sm mr-8 relative group">WORK<span class="absolute bottom-[-5px] left-0 w-0 h-[2px] bg-[#FF4500] transition-all group-hover:w-full"></span></a>
-                <a href="#pricing" class="hidden md:block font-mono text-sm mr-8 relative group">PRICING<span class="absolute bottom-[-5px] left-0 w-0 h-[2px] bg-[#FF4500] transition-all group-hover:w-full"></span></a>
-                <a href="https://wa.link/7n7wj0" target="_blank" class="clip-path-button bg-[#FF4500] text-black px-8 py-3 font-oswald text-lg tracking-widest uppercase border border-[#FF4500] hover:bg-black hover:text-[#FF4500] transition-all shadow-[0_0_15px_rgba(255,69,0,0.3)]">GET STARTED</a>
+                <a href="#work" class="hidden md:block font-mono text-sm mr-8 relative group hover-trigger">
+                    WORK <span class="absolute bottom-[-5px] left-0 w-0 h-[2px] bg-[#FF4500] transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#pricing" class="hidden md:block font-mono text-sm mr-8 relative group hover-trigger">
+                    PRICING <span class="absolute bottom-[-5px] left-0 w-0 h-[2px] bg-[#FF4500] transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="https://wa.link/7n7wj0" target="_blank" class="clip-path-button inline-block bg-[#FF4500] text-black px-8 py-3 font-oswald text-lg tracking-widest uppercase border border-[#FF4500] transition-all duration-200 hover:bg-black hover:text-[#FF4500] shadow-[0_0_15px_rgba(255,69,0,0.3)] hover-trigger">
+                    GET STARTED
+                </a>
             </nav>
         </header>
 
-        <main class="py-24 md:py-40 relative">
+        <main class="py-24 md:py-40 relative overflow-hidden">
             <div class="hidden md:flex gap-8 mb-8 text-xs text-[#666] font-mono border-b border-[#1f1f1f] pb-4">
                 <span>/// SYS.READY</span><span>/// LOC: KUL-SYD-AMS</span><span>/// EST. 2024</span>
             </div>
-            <p class="font-mono text-[#FF4500] uppercase tracking-[2px] font-bold mb-4">Design & Deployment Unit</p>
+
+            <p class="font-mono text-[#FF4500] uppercase tracking-[2px] font-bold mb-4 text-sm md:text-base">Design & Deployment Unit</p>
+            
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-                <h1 class="font-oswald text-[15vw] lg:text-[7rem] xl:text-[9rem] font-bold leading-[0.95] z-10 transition-all">WE DEPLOY<br><span style="-webkit-text-stroke: 2px #333; color: transparent;">REVENUE</span><br>ENGINES.</h1>
-                <div class="border-l-2 border-[#FF4500] pl-6 flex flex-col justify-between h-full">
+                <h1 class="font-oswald text-[18vw] sm:text-[15vw] md:text-[12vw] lg:text-[7rem] xl:text-[9rem] font-bold leading-[0.95] relative z-10 transition-all duration-300 hover-trigger">
+                    WE DEPLOY<br>
+                    <span class="text-transparent" style="-webkit-text-stroke: 2px #333;">REVENUE</span><br>
+                    ENGINES.
+                </h1>
+
+                <div class="border-l-2 border-[#FF4500] pl-6 opacity-90 flex flex-col justify-between h-full">
                     <div>
-                        <p class="text-[#ccc] text-xl md:text-2xl leading-relaxed mb-12">Unit 3 is a tactical design squad. We build landing pages and web apps engineered for revenue. <br><br><strong class="text-[#FF4500]">READY IN 7 DAYS.</strong></p>
-                        <a href="https://wa.link/7n7wj0" target="_blank" class="clip-path-button animate-heartbeat inline-block bg-[#FF4500] text-black px-12 py-6 font-oswald text-2xl font-bold tracking-widest uppercase border-2 border-[#FF4500] hover:scale-110 transition-all text-center">START PROJECT</a>
+                        <p class="text-[#ccc] text-xl md:text-2xl leading-relaxed mb-12">
+                            Unit 3 is a tactical design squad. We build landing pages and web apps engineered for revenue. <br><br>
+                            <strong class="text-[#FF4500]">Page READY IN 7 DAYS.</strong>
+                        </p>
+                        <div class="relative z-20">
+                            <a href="https://wa.link/7n7wj0" target="_blank" class="clip-path-button animate-heartbeat inline-block bg-[#FF4500] text-black px-12 py-6 font-oswald text-2xl font-bold tracking-widest uppercase border-2 border-[#FF4500] transition-all duration-200 hover:animate-none hover:scale-110 hover:shadow-[0_0_60px_rgba(255,69,0,0.8)] hover-trigger">
+                                START PROJECT
+                            </a>
+                        </div>
                     </div>
                     <p class="font-mono text-xs mt-8 opacity-80 flex items-center gap-2">
                         <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> /// 2 SLOTS REMAINING FOR THIS MONTH
@@ -61,168 +106,41 @@
         </main>
     </div>
 
-    <div class="w-full bg-[#FF4500] text-black py-4 overflow-hidden whitespace-nowrap border-y-2 border-white -rotate-1 my-24">
+    <div class="w-full bg-[#FF4500] text-black py-4 overflow-hidden whitespace-nowrap relative border-y-2 border-white -rotate-1 mb-24">
         <div class="inline-block font-oswald text-2xl font-bold animate-marquee">
             STRATEGY /// DEVELOPMENT /// UX DESIGN /// AUTOMATION /// CONVERSION RATE OPTIMISATION /// STRATEGY /// DEVELOPMENT /// UX DESIGN /// AUTOMATION /// CONVERSION RATE OPTIMISATION ///
         </div>
     </div>
 
-    <div class="relative max-w-[1300px] mx-auto px-6 md:px-12 border-l border-r border-[#1f1f1f] bg-[#080808]/70">
+    <div class="relative max-w-[1300px] mx-auto px-6 md:px-12 border-l border-r border-[#1f1f1f] bg-[#080808]/70 backdrop-blur-[5px]">
+        
         <section id="work" class="py-24">
             <div class="flex items-end justify-between mb-12 border-b border-[#1f1f1f] pb-4">
                 <h2 class="font-oswald text-4xl md:text-6xl uppercase font-bold">SELECTED WORK</h2>
                 <span class="font-mono text-[#FF4500] uppercase text-sm">[ CASE FILES ]</span>
             </div>
+
             <div class="grid grid-cols-1 gap-12 mt-12">
-                <article class="grid grid-cols-1 md:grid-cols-[1.5fr_1fr] border border-[#1f1f1f] bg-[#0a0a0a] group hover:bg-[#111] transition-all">
-                    <div class="bg-[#111] min-h-[500px] relative overflow-hidden flex justify-center items-center p-8" style="background: radial-gradient(circle at center, #222 0%, #0a0a0a 100%)">
-                        <img src="assets/proroof1.png" class="hidden lg:block absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-105 transition-transform duration-700" alt="Desktop">
-                        <div class="relative z-20 w-[240px] h-[500px] bg-black rounded-[46px] border-[3px] border-[#333] shadow-2xl overflow-hidden">
-                            <img src="assets/proroof.jpeg" class="w-full h-full object-cover" alt="Mobile">
+                
+                <article class="grid grid-cols-1 md:grid-cols-[1.5fr_1fr] border border-[#1f1f1f] bg-[#0a0a0a] transition-all duration-300 hover:bg-[#111] group hover-trigger">
+                    <div class="bg-[#111] min-h-[500px] relative overflow-hidden border-r border-[#1f1f1f] flex flex-col items-center justify-center p-8 group-hover:bg-[#151515]" style="background: radial-gradient(circle at center, #222 0%, #0a0a0a 100%)">
+                        <div class="hidden lg:block absolute top-0 left-0 w-[100%] h-full z-0 transform transition-transform duration-700 group-hover:scale-[1.02]">
+                            <div class="absolute inset-0 bg-black/40 backdrop-blur-[1px] z-10"></div>
+                            <img src="assets/proroof1.png" alt="Desktop View" class="w-full h-full object-cover object-left-top opacity-70">
+                        </div>
+                        <div class="relative z-20 transition-all duration-500 lg:absolute lg:right-8 lg:bottom-[-40px] lg:rotate-[-2deg] lg:group-hover:rotate-0 lg:group-hover:translate-y-[-10px] w-[240px] h-[500px]">
+                            <div class="w-full h-full bg-black rounded-[46px] border-[3px] border-[#333] shadow-2xl overflow-hidden ring-1 ring-black flex flex-col">
+                                <div class="absolute top-3 left-1/2 -translate-x-1/2 w-[80px] h-[22px] bg-black rounded-full z-30 flex justify-center items-center pointer-events-none">
+                                    <div class="w-[12px] h-[12px] rounded-full bg-[#1a1a1a] mr-5 opacity-60"></div>
+                                </div>
+                                <div class="w-full h-full bg-white relative flex flex-col overflow-hidden">
+                                    <img src="assets/proroof.jpeg" alt="ProRoofing Mobile" class="w-full h-full object-cover">
+                                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors pointer-events-none"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="p-8 flex flex-col justify-center">
-                        <span class="font-mono text-xs text-[#666] mb-4">/// SECTOR: LOCAL SERVICES</span>
-                        <h3 class="font-oswald text-3xl text-[#FF4500] mb-4 uppercase">ProRoofing Lead Engine</h3>
-                        <p class="text-[#ccc] mb-6 text-[0.95rem]">Restructured lead-acquisition flow for high-ticket roofing services. Mobile-first conversion mechanics.</p>
-                        <div class="text-5xl font-oswald text-[#FF4500] leading-none mb-2">+30%</div>
-                        <div class="font-mono text-xs text-[#666]">LEAD CAPTURE RATE</div>
-                    </div>
-                </article>
-
-                <article class="grid grid-cols-1 md:grid-cols-[1.5fr_1fr] border border-[#1f1f1f] bg-[#0a0a0a] group hover:bg-[#111] transition-all">
-                    <div class="bg-[#111] min-h-[500px] relative overflow-hidden flex justify-center items-center p-8" style="background: radial-gradient(circle at center, #222 0%, #0a0a0a 100%)">
-                        <img src="assets/solvix1.png" class="hidden lg:block absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-105 transition-transform duration-700" alt="Desktop">
-                        <div class="relative z-20 w-[240px] h-[500px] bg-black rounded-[46px] border-[3px] border-[#333] shadow-2xl overflow-hidden">
-                            <img src="assets/solvix.jpeg" class="w-full h-full object-cover" alt="Mobile">
-                        </div>
-                    </div>
-                    <div class="p-8 flex flex-col justify-center">
-                        <span class="font-mono text-xs text-[#666] mb-4">/// SECTOR: CREATIVE SERVICES</span>
-                        <h3 class="font-oswald text-3xl text-[#FF4500] mb-4 uppercase">Solvix Portfolio System</h3>
-                        <p class="text-[#ccc] mb-6 text-[0.95rem]">Modern web architecture designed to capture high-end clientele and mirror brand quality.</p>
-                        <div class="text-5xl font-oswald text-[#FF4500] leading-none mb-2">3X</div>
-                        <div class="font-mono text-xs text-[#666]">WEB INQUIRIES</div>
-                    </div>
-                </article>
-            </div>
-        </section>
-
-        <section id="capabilities" class="py-24 border-t border-[#1f1f1f]">
-            <div class="flex items-end justify-between mb-12 border-b border-[#1f1f1f] pb-4">
-                <h2 class="font-oswald text-4xl md:text-6xl uppercase font-bold">OUR SERVICES</h2>
-                <span class="font-mono text-[#FF4500] uppercase text-sm">[ OPERATIONAL ]</span>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-[1px] bg-[#1f1f1f] border border-[#1f1f1f]">
-                <article class="bg-[#080808] p-8 hover:bg-[#0e0e0e] transition-colors h-full group">
-                    <span class="font-oswald text-6xl text-[#333] mb-4 block group-hover:text-[#FF4500]">01</span>
-                    <h3 class="font-oswald text-2xl uppercase mb-4">Landing Page Systems</h3>
-                    <p class="opacity-80 leading-relaxed text-sm">High-performance pages optimized for conversion using component-driven architecture. Launch in 7 days.</p>
-                </article>
-                <article class="bg-[#080808] p-8 hover:bg-[#0e0e0e] transition-colors h-full group">
-                    <span class="font-oswald text-6xl text-[#333] mb-4 block group-hover:text-[#FF4500]">02</span>
-                    <h3 class="font-oswald text-2xl uppercase mb-4">Custom Web Apps</h3>
-                    <p class="opacity-80 leading-relaxed text-sm">React & Node solutions for complex logic. Scalable, secure, and built for international markets (MY/AU/NL).</p>
-                </article>
-                <article class="bg-[#080808] p-8 hover:bg-[#0e0e0e] transition-colors h-full group">
-                    <span class="font-oswald text-6xl text-[#333] mb-4 block group-hover:text-[#FF4500]">03</span>
-                    <h3 class="font-oswald text-2xl uppercase mb-4">Membership Architecture</h3>
-                    <p class="opacity-80 leading-relaxed text-sm">Gated content systems designed to maximize recurring revenue with seamless payment integration.</p>
-                </article>
-            </div>
-        </section>
-
-        <section id="team" class="py-24 border-t border-[#1f1f1f]">
-            <div class="flex items-end justify-between mb-12 border-b border-[#1f1f1f] pb-4">
-                <h2 class="font-oswald text-4xl md:text-6xl uppercase font-bold">THE TEAM</h2>
-                <span class="font-mono text-[#FF4500] uppercase text-sm">[ UNIT COMMAND ]</span>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <article class="bg-[#080808] p-6 border border-[#1f1f1f] hover:border-[#FF4500] transition-all group">
-                    <div class="aspect-square bg-[#111] mb-6 border border-[#333] overflow-hidden grayscale group-hover:grayscale-0">
-                        <img src="assets/jay.JPG" class="w-full h-full object-cover object-top" alt="Jay">
-                    </div>
-                    <h3 class="font-oswald text-xl text-[#FF4500] mb-2 uppercase">Design Director</h3>
-                    <p class="font-mono text-xs mb-4 border-b border-[#222] pb-2">// HANDLE: JAY</p>
-                    <p class="text-sm opacity-80 leading-relaxed">Ex-Agency Design Lead. Specialist in high-conversion UI patterns, component systems, and user psychology.</p>
-                </article>
-                <article class="bg-[#080808] p-6 border border-[#1f1f1f] hover:border-[#FF4500] transition-all group">
-                    <div class="aspect-square bg-[#111] mb-6 border border-[#333] overflow-hidden grayscale group-hover:grayscale-0">
-                        <img src="assets/zx.png" class="w-full h-full object-cover object-top" alt="ZX">
-                    </div>
-                    <h3 class="font-oswald text-xl text-[#FF4500] mb-2 uppercase">Strategy Director</h3>
-                    <p class="font-mono text-xs mb-4 border-b border-[#222] pb-2">// HANDLE: ZX</p>
-                    <p class="text-sm opacity-80 leading-relaxed">Deployment Strategist. Focus on sales funnels, persuasive copywriting, and maximizing revenue per visitor.</p>
-                </article>
-                <article class="bg-[#080808] p-6 border border-[#1f1f1f] hover:border-[#FF4500] transition-all group">
-                    <div class="aspect-square bg-[#111] mb-6 border border-[#333] overflow-hidden grayscale group-hover:grayscale-0">
-                        <img src="assets/vincent.jpg" class="w-full h-full object-cover object-top" alt="Vincent">
-                    </div>
-                    <h3 class="font-oswald text-xl text-[#FF4500] mb-2 uppercase">Technical Director</h3>
-                    <p class="font-mono text-xs mb-4 border-b border-[#222] pb-2">// HANDLE: VINCENT</p>
-                    <p class="text-sm opacity-80 leading-relaxed">Full-stack Engineer. React, Node, and WebGL architecture. Speed and stability are the only metrics.</p>
-                </article>
-            </div>
-        </section>
-
-        <section class="mt-24 p-8 border border-[#FF4500] relative overflow-hidden" style="background: repeating-linear-gradient(45deg, #111, #111 10px, #1a1a1a 10px, #1a1a1a 20px)">
-            <div class="relative z-10 flex flex-col md:flex-row justify-between items-center gap-8">
-                <div>
-                    <h3 class="flex items-center text-2xl font-oswald uppercase mb-2">
-                        <span class="w-3 h-3 bg-red-600 rounded-full mr-3 animate-pulse-custom"></span>EMERGENCY DEPLOYMENT
-                    </h3>
-                    <p class="max-w-[500px] opacity-80">Need it yesterday? We keep <span class="text-[#FF4500] font-bold">2 slots open</span> per month for 48-hour turnarounds. Premium rates apply.</p>
-                </div>
-                <a href="https://wa.link/97qgk9" target="_blank" class="clip-path-button bg-transparent text-[#FF4500] px-8 py-3 font-oswald uppercase border border-[#FF4500] hover:bg-[#FF4500] hover:text-black transition-all">CHECK AVAILABILITY</a>
-            </div>
-        </section>
-
-        <footer class="py-24 mt-24 border-t border-[#1f1f1f]">
-            <div class="font-mono text-[#FF4500] uppercase mb-8 text-sm">/// Transmission End</div>
-            <div class="mb-16">
-                <h2 class="font-oswald text-4xl md:text-5xl mb-8 uppercase">Ready to Deploy?</h2>
-                <a href="https://wa.link/7n7wj0" target="_blank" class="clip-path-button inline-block bg-[#FF4500] text-black px-10 py-5 font-oswald text-xl font-bold tracking-widest uppercase shadow-[0_0_15px_rgba(255,69,0,0.3)]">START YOUR PROJECT</a>
-            </div>
-            <div class="flex flex-col md:flex-row justify-between gap-8 pt-8 border-t border-[#333] opacity-60 font-mono text-sm">
-                <div><strong class="block mb-2 text-white">BASE OF OPERATIONS</strong>Kuala Lumpur • Sydney • Amsterdam</div>
-                <div><strong class="block mb-2 text-white">DIRECT LINE</strong>+60 11 5559 4933</div>
-                <div>© 2025 UNIT 3.<br>ALL RIGHTS RESERVED.</div>
-            </div>
-        </footer>
-    </div>
-
-    <script>
-        // Restored Logic 1: Cursor movement + Hover effects
-        const dot = document.getElementById('cursor-dot');
-        const outline = document.getElementById('cursor-outline');
-        const grid = document.getElementById('grid-bg');
-
-        document.addEventListener('mousemove', (e) => {
-            const { clientX, clientY } = e;
-            dot.style.left = outline.style.left = clientX + 'px';
-            dot.style.top = outline.style.top = clientY + 'px';
-
-            // Restored Logic 2: Parallax Grid Background
-            const x = (window.innerWidth - clientX * 2) / 100;
-            const y = (window.innerHeight - clientY * 2) / 100;
-            grid.style.transform = `perspective(1000px) rotateX(5deg) scale(1.05) translateX(${x}px) translateY(${y}px)`;
-        });
-
-        // Hover expansions
-        document.querySelectorAll('a, button, .group').forEach(el => {
-            el.addEventListener('mouseenter', () => { outline.style.width = '80px'; outline.style.height = '80px'; outline.style.backgroundColor = 'rgba(234,234,234,0.1)'; });
-            el.addEventListener('mouseleave', () => { outline.style.width = '40px'; outline.style.height = '40px'; outline.style.backgroundColor = 'transparent'; });
-        });
-
-        // Restored Logic 3: Full Currency Detection
-        const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        const sym = document.querySelector('.text-2xl.mr-2'); // symbol
-        const amt = document.querySelector('.text-6xl');      // amount
-        
-        if (userTimeZone.includes("Australia")) { sym.innerText = "AUD $"; amt.innerText = "799"; }
-        else if (userTimeZone.includes("Europe") || userTimeZone.includes("Amsterdam")) { sym.innerText = "€"; amt.innerText = "499"; }
-        else if (userTimeZone.includes("America") || userTimeZone.includes("US")) { sym.innerText = "USD $"; amt.innerText = "499"; }
-        else { sym.innerText = "RM"; amt.innerText = "1199"; }
-    </script>
-</body>
-</html>
+                    <div class="p-8 flex flex-col justify-center relative z-10 bg-[#0a0a0a] lg:bg-transparent">
+                        <span class="font-mono text-xs text-[#666] mb-6 block">/// SECTOR: LOCAL SERVICES</span>
+                        <h3 class="font-oswald text-3xl mb-4 text-[#FF4500]">PROROOFING LEAD ENGINE</h3>
+                        <p class="
